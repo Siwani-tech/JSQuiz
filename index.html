@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="score">
+            
+            <span id="user-score">0</span>
+            <span id="total-score">/ 3</span>
+        </div>
+        <div class="content" id="question-area">
+            <div id="question-text"></div>
+            <span id="question-text"><!--Question--> </span>
+            <div class="option">
+                <button class="btn btn-option" id="True">True</button>
+                <button class="btn btn-option" id="False">False</button>
+            </div>
+        </div>
+        <div class="controls">
+            <button class="btn btn-restart" id="restart">Restart</button>
+            <button class="btn btn-prev" id="prev">Prev</button>
+            <button class="btn btn-next" id="next">Next</button>
+            <button class="btn btn-submit" id="submit">Submit</button>
+            
+        </div>
+    </div>
+
+
+
+
+    <!---------javascript------------>
+    <script>
+        const restartBtn= document.getElementById('restart');
+        const prevBtn= document.getElementById('prev');
+        const nextBtn= document.getElementById('next');
+        const submitBtn= document.getElementById('submit');
+        const trueBtn= document.getElementById('True');
+        const falseBtn= document.getElementById('False');
+        const userScore= document.getElementById('user-score');
+        const questionText=document.getElementById('question-text');
+
+        let currentQuestion=0;
+        var score=0;
+
+        let question=[
+            {
+                question: "Which one represent the ternary operator in Javascript?",
+                answers: [
+                    {Option:"?", answers:true},
+                    {Option:"^",answers:false}
+                ]
+            },
+            {
+                question:"What is the original name of Javascript?",
+                answers:[
+                    {Option:"Javascript",answers:false},
+                    {Option:"Mocha",answers:true}
+                ]
+            },
+            {
+                question:"Can we use optional chaining?",
+                answers:[
+                    {Option:"Yes",answers:true},
+                    {Option:"No",answers:false}
+                ]
+            }
+        ]
+
+        restartBtn.addEventListener('click',restart);
+        prevBtn.addEventListener('click',prev);
+        nextBtn.addEventListener('click',next);
+        submitBtn.addEventListener('click',submit);
+
+        function beginQuiz(){
+            currentQuestion=0;
+            questionText.innerHTML=question[currentQuestion].question;
+            trueBtn.innerHTML=question[currentQuestion].answers[0].Option;
+            trueBtn.onclick=()=>{
+                let ano=0;
+                if(question[currentQuestion].answers[ano].answers){
+                    if(score<3){
+                        score++;
+                    }
+                }
+                userScore.innerHTML=score;
+                if(currentQuestion<2){
+                    next();
+                }
+            }
+            falseBtn.innerHTML=question[currentQuestion].answers[1].Option;
+            falseBtn.onclick=()=>{
+                let ano=1;
+                if(question[currentQuestion].answers[ano].answers){
+                    if(score<3){
+                        score++;
+                    }
+                }
+                userScore.innerHTML=score;
+                if(currentQuestion<2){
+                    next();
+                }
+            }
+            prevBtn.classList.add('hide');
+        }
+        beginQuiz();
+
+        function restart(){
+            currentQuestion=0;
+            prevBtn.classList.remove('hide');
+            nextBtn.classList.remove('hide');
+            submitBtn.classList.remove('hide');
+            trueBtn.classList.remove('hide');
+            falseBtn.classList.remove('hide');
+            score=0;
+            userScore.innerHTML=score;
+            beginQuiz();
+        }
+        function next(){
+            currentQuestion++;
+            if(currentQuestion>=2){
+                nextBtn.classList.add('hide');
+                prevBtn.classList.remove('hide');
+
+            }
+            questionText.innerHTML=question[currentQuestion].question;
+            trueBtn.innerHTML=question[currentQuestion].answers[0].Option;
+            trueBtn.onclick=()=>{
+                let ano=0;
+                if(question[currentQuestion].answers[ano].answers){
+                    if(score<3){
+                        score++;
+                    }
+                }
+                userScore.innerHTML=score;
+                if(currentQuestion<2){
+                    next();
+                }
+            }
+
+            falseBtn.innerHTML=question[currentQuestion].answers[1].Option;
+            falseBtn.onclick=()=>{
+                let ano=1;
+                if(question[currentQuestion].answers[ano].answers){
+                    if(score<3){
+                        score++;
+                    }
+                }
+                userScore.innerHTML=score;
+                if(currentQuestion<2){
+                    next();
+                }
+            }
+            prevBtn.classList.remove('hide');
+
+
+        }
+
+
+        function prev(){
+            currentQuestion--;
+            if(currentQuestion<=0){
+                prevBtn.classList.add('hide');
+                nextBtn.classList.remove('hide');
+
+            }
+            questionText.innerHTML=question[currentQuestion].question;
+            trueBtn.innerHTML=question[currentQuestion].answers[0].Option;
+            trueBtn.onclick=()=>{
+                let ano=0;
+                if(question[currentQuestion].answers[ano].answers){
+                    if(score<3){
+                        score++;
+                    }
+                }
+                userScore.innerHTML=score;
+                if(currentQuestion<2){
+                    next();
+                }
+            }
+
+            falseBtn.innerHTML=question[currentQuestion].answers[1].Option;
+            falseBtn.onclick=()=>{
+                let ano=1;
+                if(question[currentQuestion].answers[ano].answers){
+                    if(score<3){
+                        score++;
+                    }
+                }
+                userScore.innerHTML=score;
+                if(currentQuestion<2){
+                    next();
+                }
+            }
+            nextBtn.classList.remove('hide');
+
+
+        }
+
+        function submit(){
+            prevBtn.classList.add('hide');
+            nextBtn.classList.add('hide');
+            submitBtn.classList.add('hide');
+            trueBtn.classList.add('hide');
+            falseBtn.classList.add('hide');
+            questionText.innerHTML="Congratulation for submitting ";
+        }
+
+
+
+    </script>
+</body>
+</html>
